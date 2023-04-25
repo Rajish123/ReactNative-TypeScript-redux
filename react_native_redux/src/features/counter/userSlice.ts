@@ -24,6 +24,7 @@ export const userSlice = createSlice({
                 username:state.username,
                 isUserLogin:true
             };
+            console.log("updated state:",state)
         },
         logout:(state)=>{
             return {

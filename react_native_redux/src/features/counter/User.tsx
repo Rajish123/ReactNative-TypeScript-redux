@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, TextInput, Button, Text } from 'react-native';
+import { View, TextInput, Button, Text,StyleSheet } from 'react-native';
 import type { RootState } from '../../app/store'
 import { useSelector, useDispatch } from 'react-redux'
 import { login, setUsername } from './userSlice';
@@ -54,6 +54,7 @@ const LoginForm: React.FC = ()=> {
             onChangeText={onChange}
             value={value}
             placeholder="Username"
+            style={styles.input}
           />
         )}
         name="username"
@@ -73,6 +74,8 @@ const LoginForm: React.FC = ()=> {
             value={value}
             placeholder="Password"
             secureTextEntry={true}
+            style={styles.input}
+
           />
         )}
         name="password"
@@ -84,5 +87,11 @@ const LoginForm: React.FC = ()=> {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  input:{
+    color:'black'
+  }
+})
 
 export default LoginForm;

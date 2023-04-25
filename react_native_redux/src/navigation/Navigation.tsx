@@ -60,7 +60,7 @@ function AuthenticatedTabs() {
           )
         }
       }} />
-      <Tab.Screen name = "Products" component={Products} options={{
+      {/* <Tab.Screen name = "Products" component={Products} options={{
         tabBarIcon : ({focused}) => {
           return(
             <Image 
@@ -68,7 +68,7 @@ function AuthenticatedTabs() {
             source={imagePath.icProduct} />
           )
         }
-      }} />
+      }} /> */}
       <Tab.Screen name = "Counter" component={Counter} options={{
         tabBarIcon : ({focused}) => {
           return(
@@ -121,6 +121,15 @@ function UnauthenticatedTabs() {
           )
         }
       }}/>
+      <Tab.Screen name = "Products" component={Products} options={{
+        tabBarIcon : ({focused}) => {
+          return(
+            <Image 
+            style = {{tintColor:focused?'red':'black'}}
+            source={imagePath.icProduct} />
+          )
+        }
+      }} />
       <Tab.Screen name = "Login" component={LoginForm} options={{
         tabBarIcon : ({focused}) => {
           return(
