@@ -39,11 +39,13 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     marginBottom: 20,
+    color:'black'
   },
   text: {
     fontSize: 20,
     fontWeight: 'bold',
     marginBottom: 20,
+    color:'black'
   },
   button: {
     backgroundColor: 'blue',

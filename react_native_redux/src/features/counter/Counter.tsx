@@ -21,7 +21,7 @@ const Counter:React.FC=()=> {
   return (
     <View style = {{flex:1, justifyContent:'center', alignItems:'center'}}>
       <View style = {{marginBottom:20}}>
-        <Text style = {{fontSize:40, fontWeight:'bold'}}>{count.count}</Text>
+        <Text style = {{fontSize:40, fontWeight:'bold',color:'black'}}>{count.count}</Text>
       </View>
       <View style = {{
         flexDirection:'row',
@@ -37,7 +37,7 @@ const Counter:React.FC=()=> {
         </TouchableOpacity>
       </View>
       <View style={{flexDirection:'row'}}>
-        <TextInput value={count.changeValue} style={{borderWidth:1,width:'80%'}} 
+        <TextInput value={count.changeValue} style={{borderWidth:1,width:'80%',color:'black'}} 
           onChangeText={text => dispatch(changestateValue({ changeValue: text }))}/>
       </View>
 

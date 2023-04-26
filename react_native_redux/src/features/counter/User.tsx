@@ -5,36 +5,37 @@ import { useSelector, useDispatch } from 'react-redux'
 import { login, setUsername } from './userSlice';
 import { useForm, Controller } from 'react-hook-form';
 import axios from 'axios';
+import { ThunkDispatch } from 'redux-thunk';
+import { AnyAction } from 'redux';
+import { userLogin } from './userSlice';
 
 interface FormData {
   username: string;
   password: string;
+  // isUserLogin:boolean;
 }
 
 
 const LoginForm: React.FC = ()=> {
     const isUserLogin = useSelector((state: RootState) => state.user.isUserLogin);
-    const dispatch = useDispatch()
+    const dispatch: ThunkDispatch<{}, {}, AnyAction> = useDispatch();
+
 
 // control:register the input components and their values to the form,
 // provides the value of the input components and triggers a re-render when the input values change.
 // handleSubmit:called when the form is submitted
 // formState: contains the errors and other information related to the form.
-    const { control, handleSubmit, formState: { errors } } = useForm<FormData>();
+  const { control, handleSubmit, formState: { errors } } = useForm<FormData>();
   
   const onSubmit = async(data: FormData) => {
-    try{
-        const response = await axios.post('https://dummyjson.com/auth/login',data);
-        // console.log(response)
-        if (response.status == 200){
-            dispatch(setUsername({ username: data.username }));
-            dispatch(login())
-        }else{
-            console.log("Invalid credentials")
-        }
-    }catch(error){
-        console.log(error)
+    const userData = {
+      username:data.username,
+      password:data.password,
+      isUserLogin:false
     }
+    dispatch(userLogin(userData)).then(()=>{
+      console.log("submit successful")
+    })
   };
 
   return (
@@ -90,7 +91,11 @@ const LoginForm: React.FC = ()=> {
 
 const styles = StyleSheet.create({
   input:{
-    color:'black'
+    color:'black',
+    borderWidth: 1,
+    borderColor: 'gray',
+    padding:10,
+    marginBottom:10
   }
 })
 

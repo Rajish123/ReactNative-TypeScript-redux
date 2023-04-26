@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { View,Text,Image,StyleSheet } from 'react-native';
+import { View,Text,Image,StyleSheet, TouchableOpacity } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import { ActivityIndicator } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux'
@@ -21,8 +21,11 @@ interface products {
   category:string;
   thumbnail:string;
 }
+type Props = {
+  navigation:any;
+}
 
-const Products:React.FC=()=> {
+const Products:React.FC<Props>=({navigation})=> {
   //  array of products that will be displayed in the FlatList
   const [data,setData] = useState<products[]>([]);
   const [loading,setLoading] = useState<boolean>(false);
@@ -39,9 +42,7 @@ const Products:React.FC=()=> {
   useEffect(() => {
     if (allproduct !== null) {
       setData([...allproduct]);
-      console.log("here data gets ",data)
     }
-    console.log("updated data:",data)
   }, [allproduct]);
 
 
@@ -53,18 +54,32 @@ const Products:React.FC=()=> {
     }
   };
 
+  // takes an object of type products and navigate to the "Details" screen passing the item details as parameters to the screen.
+  const handleItemPress = (item:products) => {
+    navigation.navigate("Details",{
+      id:item.id,
+      title: item.title,
+      description: item.description,
+      price: item.price,
+      discountPercentage:item.discountPercentage,
+      rating:item.rating,
+      stock:item.stock,
+      brand:item.brand,
+      category:item.category,
+      thumbnail:item.thumbnail
+    })
+  }
+
   // render each item in the data array. 
   const renderItem = ({item}:{item:products})=>{
-    console.log("item is: ",item.id)
-    console.log("tit is: ",item.title)
-    console.log("des is: ",item.description)
-
     return (
       <View style = {styles.itemContainer}>
         <Image source = {{uri:item.thumbnail}} style = {styles.itemImage} />
         <Text>{item.title}</Text>
         <View style = {styles.itemDetails}>
-          <Text style={styles.itemTitle}>{item.title}</Text>
+          <TouchableOpacity onPress={()=>handleItemPress(item)}>
+            <Text style={styles.itemTitle}>{item.title}</Text>
+          </TouchableOpacity>
           {/* <Text style={styles.itemDescription}>{item.description}</Text> */}
           <Text style={styles.itemPrice}>{item.price}</Text><Text>Products</Text>
           <Text>{item.title}</Text>

@@ -41,6 +41,26 @@ export const fetchProducts = createAsyncThunk(
     }
 )
 
+export const addProduct = createAsyncThunk(
+    'products/addProduct',async(product:Product,thunkAPI) =>{
+        try{
+            const response = await fetch('https://dummyjson.com/products/add',{
+                method:'POST',
+                headers:{
+                    'Content-Type': 'application/json'
+                },
+                body:JSON.stringify(product)
+            })
+            const data = await response.json();
+            return data;
+        }
+        catch(error){
+            console.error("addProduct thunk error",error)
+            throw error;
+        }
+    }
+)
+
 const productSlice = createSlice({
     name:'products',
     initialState,
@@ -50,6 +70,11 @@ const productSlice = createSlice({
             // console.log(action)
             state.products = action.payload.products;
             state.total = action.payload.total;
+        });
+
+        builder.addCase(addProduct.fulfilled,(state,action)=>{
+            console.log("payload data",action.payload)
+            state.products.push(action.payload)
         })
     }
 })

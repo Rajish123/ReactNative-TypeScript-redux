@@ -6,11 +6,12 @@ import Counter from '../features/counter/Counter';
 import Home from '../screens/home';
 import Products from '../screens/products';
 import Logout from '../screens/logout';
-import { ParamListBase } from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { Image } from 'react-native';
 import imagePath from '../assets/imagePath';
-
+import AddProduct from '../screens/addProduct';
+import { ParamListBase } from '@react-navigation/native';
+import { ProductStackScreen } from './StackNavigation';
 
 interface screenType extends ParamListBase {
   Home:undefined;
@@ -34,7 +35,7 @@ function AuthenticatedTabs() {
               iconName = focused
                 ? 'ios-information-circle'
                 : 'ios-information-circle-outline';
-            } else if (route.name === 'Products') {
+            } else if (route.name === 'Productstack') {
               iconName = focused ? 'ios-list' : 'ios-list-outline';
             }
 
@@ -48,7 +49,8 @@ function AuthenticatedTabs() {
             backgroundColor:'#C0C0C0',
             bottom:10,
             borderRadius:10
-          }
+          },
+          headerShown:false
         })}
       >
       <Tab.Screen name = "Home" component={Home} options={{
@@ -60,7 +62,7 @@ function AuthenticatedTabs() {
           )
         }
       }} />
-      {/* <Tab.Screen name = "Products" component={Products} options={{
+      <Tab.Screen name = "Productstack" component={ProductStackScreen} options={{
         tabBarIcon : ({focused}) => {
           return(
             <Image 
@@ -68,13 +70,23 @@ function AuthenticatedTabs() {
             source={imagePath.icProduct} />
           )
         }
-      }} /> */}
+      }} />
       <Tab.Screen name = "Counter" component={Counter} options={{
         tabBarIcon : ({focused}) => {
           return(
             <Image 
             style = {{tintColor:focused?'red':'black'}}
             source={imagePath.icCounter} />
+          )
+        }
+      }}/>
+      <Tab.Screen name = "AddProduct" component={AddProduct} options={{
+        tabBarIcon:({focused})=>{
+          return (
+            <Image 
+              style = {{tintColor:focused?'red':'black'}}
+              source={imagePath.icAddProduct}
+            />
           )
         }
       }}/>
@@ -102,7 +114,7 @@ function UnauthenticatedTabs() {
           iconName = focused
             ? 'ios-information-circle'
             : 'ios-information-circle-outline';
-        } else if (route.name === 'Products') {
+        } else if (route.name === 'Login') {
           iconName = focused ? 'ios-list' : 'ios-list-outline';
         }
 
@@ -121,15 +133,6 @@ function UnauthenticatedTabs() {
           )
         }
       }}/>
-      <Tab.Screen name = "Products" component={Products} options={{
-        tabBarIcon : ({focused}) => {
-          return(
-            <Image 
-            style = {{tintColor:focused?'red':'black'}}
-            source={imagePath.icProduct} />
-          )
-        }
-      }} />
       <Tab.Screen name = "Login" component={LoginForm} options={{
         tabBarIcon : ({focused}) => {
           return(
@@ -139,7 +142,10 @@ function UnauthenticatedTabs() {
           )
         }
       }}/>
+
+
     </Tab.Navigator>
+
   )
 }
 
